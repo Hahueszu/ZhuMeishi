@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Zhú měishí</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+    margin-top: 2px;
+    display: flex;
+    justify-content: center; 
+    flex-direction: column; 
+    align-items: center; 
+    }
+
+      
+    h1 button {
+         margin-top: 5px;
+         padding: 12px;
+        cursor: pointer;
+    }
+
+
+    #playerIdInput {
+         margin-top: 10px;
+         padding: 16px;
+         font-size: 16px;
+         position: relative;
+         text-align: center;
+    }
+
+
+        #playerId {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        #placeholderText {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            color: #aaa;
+            transition: transform 0.2s, font-size 0.2s;
+        }
+
+        #playerIdInput:focus-within #placeholderText {
+            transform: translate(-50%, -100%) scale(0.8);
+        }
+    
+        #container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+        }
+
+        #lewa, #prawa {
+            width: 48%;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        input {
+            width: 60px;
+        }
+
+        #total {
+            font-weight: bold;
+        }
+
+        #discounts {
+            width: 20%;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        #discounts th, #discounts td {
+            padding: 6px;
+        }
+
+        #discounts td:first-child {
+            font-weight: bold;
+        }
+
+        #orderSummary {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>
+    Kalkulator Zhú měishí <br>
+    <button onclick="location.reload()">Odśwież</button>
+    <button onclick="window.open(window.location.href)">Nowe zamówienie</button>
+</h1>
+
+<div id="playerIdInput">
+    <label id="placeholderText" for="playerId">Wpisz ID gracza</label>
+    <input type="text" id="playerId" oninput="handlePlayerIdInput()" />
+</div>
+
+<div id="container">
+    <div id="lewa">
+        <h3> Sushi </h3>
+<table id="sushi">
+    <thead>
+        <tr>
+            <th>Nazwa</th>
+            <th>Cena</th>
+            <th>Ilość</th>
+            <th>Wartość</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Maki</td>
+            <td><input type="number" id="price1" value="120" /></td>
+            <td><input type="number" id="quantity1" value="0" /></td>
+            <td><span id="result1">0</span></td>
+        </tr>
+        <tr>
+            <td>Hisomaki</td>
+            <td><input type="number" id="price2" value="120" /></td>
+            <td><input type="number" id="quantity2" value="0" /></td>
+            <td><span id="result2">0</span></td>
+        </tr>
+        <tr>
+            <td>Kappamaki</td>
+            <td><input type="number" id="price3" value="120" /></td>
+            <td><input type="number" id="quantity3" value="0" /></td>
+            <td><span id="result3">0   
+            </span></td>
+        </tr>
+        <tr>
+            <td>Date maki</td>
+            <td><input type="number" id="price4" value="120" /></td>
+            <td><input type="number" id="quantity4" value="0" /></td>
+            <td><span id="result4">0   
+            </span></td>
+        </tr>
+        </tbody>
+    </table>
+<h3> Ramen </h3>
+<table id="ramen">
+    <thead>
+        <tr>
+            <th>Nazwa</th>
+            <th>Cena</th>
+            <th>Ilość</th>
+            <th>Wartość</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Shio</td>
+            <td><input type="number" id="price5" value="110" /></td>
+            <td><input type="number" id="quantity5" value="0" /></td>
+            <td><span id="result5">0   
+            </span></td>
+        </tr>
+        <tr>
+            <td>Tonkotsu</td>
+            <td><input type="number" id="price6" value="110" /></td>
+            <td><input type="number" id="quantity6" value="0" /></td>
+            <td><span id="result6">0   
+            </span></td>
+        </tr>
+        <tr>
+            <td>Wege</td>
+            <td><input type="number" id="price7" value="110" /></td>
+            <td><input type="number" id="quantity7" value="0" /></td>
+            <td><span id="result7">0   
+            </span></td>
+        </tr>
+        </tbody>
+    </table>
+<h3> Onigiri </h3>
+<table id="onigiri">
+    <thead>
+        <tr>
+            <th>Nazwa</th>
+            <th>Cena</th>
+            <th>Ilość</th>
+            <th>Wartość</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Umeboshi</td>
+            <td><input type="number" id="price8" value="90" /></td>
+            <td><input type="number" id="quantity8" value="0" /></td>
+            <td><span id="result8">0   
+            </span></td>
+        </tr>
+        <tr>
+            <td>Katsuobushi</td>
+            <td><input type="number" id="price9" value="90" /></td>
+            <td><input type="number" id="quantity9" value="0" /></td>
+            <td><span id="result9">0   
+            </span></td>
+        </tr>
+        </tbody>
+</table>
+<h3> Pierożki Gyoza </h3>
+    <table id="pierozki">
+        <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Cena</th>
+                <th>Ilość</th>
+                <th>Wartość</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Yaki</td>
+            <td><input type="number" id="price10" value="55" /></td>
+            <td><input type="number" id="quantity10" value="0" /></td>
+            <td><span id="result10">0   
+            </span></td>
+        </tr>
+        <tr>
+            <td>Wege</td>
+            <td><input type="number" id="price11" value="55" /></td>
+            <td><input type="number" id="quantity11" value="0" /></td>
+            <td><span id="result11">0   
+            </span></td>
+        </tr>
+        <tr>
+            <td>Sui</td>
+            <td><input type="number" id="price12" value="70" /></td>
+            <td><input type="number" id="quantity12" value="0" /></td>
+            <td><span id="result12">0   
+            </span></td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+
+    <div id="prawa">
+        <h3> Desery </h3>
+<table id="desery">
+    <thead>
+        <tr>
+            <th>Nazwa</th>
+            <th>Cena</th>
+            <th>Ilość</th>
+            <th>Wartość</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Tayaki</td>
+            <td><input type="number" id="price13" value="70" /></td>
+            <td><input type="number" id="quantity13" value="0" /></td>
+            <td><span id="result13">0   
+            </span></td>
+        </tr>
+        <tr>
+            <td>Sakura Jelly</td>
+            <td><input type="number" id="price14" value="70" /></td>
+            <td><input type="number" id="quantity14" value="0" /></td>
+            <td><span id="result14">0   
+            </span></td>
+        </tr>
+        <tr>
+            <td>Mochi</td>
+            <td><input type="number" id="price15" value="70" /></td>
+            <td><input type="number" id="quantity15" value="0" /></td>
+            <td><span id="result15">0   
+            </span></td>
+        </tr>
+        <tr>
+            <td>Animitsu</td>
+            <td><input type="number" id="price16" value="70" /></td>
+            <td><input type="number" id="quantity16" value="0" /></td>
+            <td><span id="result16">0   
+            </span></td>
+        </tr>
+        <tr>
+            <td>Dorayaki</td>
+            <td><input type="number" id="price17" value="70" /></td>
+            <td><input type="number" id="quantity17" value="0" /></td>
+            <td><span id="result17">0   
+            </span></td>
+        </tr>
+        </tbody>
+</table>
+<h3> Napoje </h3>
+<table id="napoje">
+    <thead>
+        <tr>
+            <th>Nazwa</th>
+            <th>Cena</th>
+            <th>Ilość</th>
+            <th>Wartość</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Geen tea</td>
+            <td><input type="number" id="price18" value="50" /></td>
+            <td><input type="number" id="quantity18" value="0" /></td>
+            <td><span id="result18">0   
+            </span></td>
+        </tr>
+        <tr>
+            <td>Bubble tea </td>
+            <td><input type="number" id="price19" value="60" /></td>
+            <td><input type="number" id="quantity19" value="0" /></td>
+            <td><span id="result19">0   
+            </span></td>
+        </tr>
+        <tr>
+            <td>Coffee </td>
+            <td><input type="number" id="price20" value="50" /></td>
+            <td><input type="number" id="quantity20" value="0" /></td>
+            <td><span id="result20">0   
+            </span></td>
+        </tr>
+        <tr>
+            <td>Hot chocolate </td>
+            <td><input type="number" id="price21" value="60" /></td>
+            <td><input type="number" id="quantity21" value="0" /></td>
+            <td><span id="result21">0   
+            </span></td>
+        </tr>
+        <tr>
+            <td>Genmatcha </td>
+            <td><input type="number" id="price22" value="55" /></td>
+            <td><input type="number" id="quantity22" value="0" /></td>
+            <td><span id="result22">0   
+            </span></td>
+        </tr>
+        <tr>
+            <td>Thai ice tea </td>
+            <td><input type="number" id="price23" value="55" /></td>
+            <td><input type="number" id="quantity23" value="0" /></td>
+            <td><span id="result23">0   
+            </span></td>
+        </tr>
+        <tr>
+            <td>Sake </td>
+            <td><input type="number" id="price24" value="70" /></td>
+            <td><input type="number" id="quantity24" value="0" /></td>
+            <td><span id="result24">0   
+            </span></td>
+        </tr>
+        <tr>
+            <td>Red wine </td>
+            <td><input type="number" id="price25" value="70" /></td>
+            <td><input type="number" id="quantity25" value="0" /></td>
+            <td><span id="result25">0   
+            </span></td>
+        </tr>
+        <tr>
+            <td>White wine </td>
+            <td><input type="number" id="price26" value="70" /></td>
+            <td><input type="number" id="quantity26" value="0" /></td>
+            <td><span id="result26">0   
+            </span></td>
+        </tr>
+</table>
+    </div>
+</div>
+
+<table id="discounts">
+    <thead>
+        <tr>
+            <th>Zniżka</th>
+            <th>Wartość</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Normalna cena</td>
+            <td><span id="total">0.00</span></td>
+        </tr>
+        <tr>
+            <td>LSPD -40%</td>
+            <td><span id="discount40">0.00</span></td>
+        </tr>
+        <tr>
+            <td>LSPD (cywil) -20%</td>
+            <td><span id="discount20">0.00</span></td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<div id="orderSummary"></div>
+
+<script>
+function updateResult(row) {
+    var priceInput = document.getElementById('price' + row);
+    var quantityInput = document.getElementById('quantity' + row);
+
+
+    var price = priceInput.value.trim() !== '' ? parseFloat(priceInput.value) : 0;
+    var quantity = quantityInput.value.trim() !== '' ? parseFloat(quantityInput.value) : 0;
+
+    var result = price * quantity;
+    document.getElementById('result' + row).innerText = result.toFixed(2);
+    updateTotal();
+    updateDiscounts();
+    updateOrderSummary();
+}
+
+function updateTotal() {
+    var total = 0;
+    for (var i = 1; i <= 26; i++) {
+        var priceInput = document.getElementById('price' + i);
+        var quantityInput = document.getElementById('quantity' + i);
+
+       
+        var price = priceInput.value.trim() !== '' ? parseFloat(priceInput.value) : 0;
+        var quantity = quantityInput.value.trim() !== '' ? parseFloat(quantityInput.value) : 0;
+
+        total += price * quantity;
+    }
+    document.getElementById('total').innerText = total.toFixed(2);
+}
+
+function updateDiscounts() {
+    var total = parseFloat(document.getElementById('total').innerText);
+
+    var discount0 = total;
+    updateDiscountValue('discount0', discount0);
+
+    var discount40 = total - (total * 0.4);
+    updateDiscountValue('discount40', discount40);
+
+    var discount20 = total - (total * 0.2);
+    updateDiscountValue('discount20', discount20);
+}
+
+function updateDiscountValue(discountId, value) {
+    var discountElement = document.getElementById(discountId);
+    if (discountElement) {
+        discountElement.innerText = value.toFixed(2);
+    }
+}
+
+function updateOrderSummary() {
+    var orderSummary = "";
+    for (var i = 1; i <= 26; i++) {
+        var quantity = parseFloat(document.getElementById('quantity' + i).value);
+        if (quantity > 0) {
+            var dishName = document.getElementsByTagName('td')[4 * (i - 1)].innerText;
+            orderSummary += quantity + "x " + dishName + ", ";
+        }
+    }
+    orderSummary = orderSummary.replace(/,\s*$/, "");
+    document.getElementById('orderSummary').innerText = "Podsumowanie: " + orderSummary;
+}
+
+for (var i = 1; i <= 26; i++) {
+    document.getElementById('quantity' + i).addEventListener('input', function () {
+        var row = this.id.replace('quantity', '');
+        updateResult(row);
+    });
+}
+
+updateTotal();
+updateDiscounts();
+updateOrderSummary();
+</script>
+
+</body>
+</html>
